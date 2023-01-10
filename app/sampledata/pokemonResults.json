@@ -1,0 +1,29 @@
+{
+  "height": 7,
+  "id": 1,
+  "name": "bulbasaur",
+  "sprites": {
+    "versions": {
+      "generation-v": {
+        "black-white": {
+          "animated": {
+            "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
+          }
+        }
+      }
+    }
+  },
+  "types": [
+    {
+      "type": {
+        "name": "grass"
+      }
+    },
+    {
+      "type": {
+        "name": "poison"
+      }
+    }
+  ],
+  "weight": 69
+}

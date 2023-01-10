@@ -1,31 +1,23 @@
 {
-  "base_experience": 64,
-  "height": 7,
-  "id": 1,
-  "name": "bulbasaur",
-  "order": 1,
-  "sprites": {
-    "versions": {
-      "generation-v": {
-        "black-white": {
-          "animated": {
-            "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
-          }
-        }
-      }
-    }
-  },
-  "types": [
+  "count": 1154,
+  "next": "",
+  "previous": null,
+  "results": [
     {
-      "type": {
-        "name": "grass"
-      }
+      "name": "bulbasaur",
+      "url": ""
     },
     {
-      "type": {
-        "name": "poison"
-      }
+      "name": "ivysaur",
+      "url": ""
+    },
+    {
+      "name": "venusaur",
+      "url": ""
+    },
+    {
+      "name": "charmander",
+      "url": ""
     }
-  ],
-  "weight": 69
+  ]
 }

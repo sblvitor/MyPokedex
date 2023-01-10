@@ -10,10 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lira.mypokedex.databinding.FragmentPokedexBinding
 import com.lira.mypokedex.presentation.PokedexViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PokedexFragment : Fragment() {
 
-    private lateinit var pokedexViewModel: PokedexViewModel
+    private val pokedexViewModel by viewModel<PokedexViewModel>()
     private var _binding: FragmentPokedexBinding? = null
 
     // This property is only valid between onCreateView and
@@ -21,16 +22,20 @@ class PokedexFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        pokedexViewModel = ViewModelProvider(this)[PokedexViewModel::class.java]
 
         _binding = FragmentPokedexBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        //val textView: TextView = binding.textHome
-        pokedexViewModel.text.observe(viewLifecycleOwner, Observer {
-            //textView.text = it
-        })
-        return root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        pokedexViewModel.pokemon.observe(viewLifecycleOwner){
+            when(it){
+
+            }
+        }
     }
 
     override fun onDestroyView() {
