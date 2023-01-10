@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.lira.mypokedex.databinding.FragmentNotificationsBinding
+import com.lira.mypokedex.databinding.FragmentMenuBinding
 import com.lira.mypokedex.presentation.MenuViewModel
 
 class MenuFragment : Fragment() {
 
     private lateinit var menuViewModel: MenuViewModel
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentMenuBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,7 +28,7 @@ class MenuFragment : Fragment() {
         menuViewModel =
             ViewModelProvider(this).get(MenuViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentMenuBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
