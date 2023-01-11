@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.lira.mypokedex.data.model.Pokemon
 import com.lira.mypokedex.databinding.ItemPokemonBinding
 
@@ -23,7 +24,11 @@ class PokemonAdapter: ListAdapter<Pokemon, PokemonAdapter.ViewHolder>(DiffCallba
     inner class ViewHolder(private val binding: ItemPokemonBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Pokemon) {
-            
+            binding.tvPokemonName.text = item.name.replaceFirstChar { it.uppercase() }
+            Glide
+                .with(binding.root.context)
+                .load(item.sprites.frontDefault)
+                .into(binding.ivPokemon)
         }
     }
 

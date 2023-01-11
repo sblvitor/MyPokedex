@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.lira.mypokedex.core.createDialog
+import com.lira.mypokedex.core.createProgressDialog
 import com.lira.mypokedex.databinding.FragmentPokedexBinding
 import com.lira.mypokedex.presentation.PokedexViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,6 +17,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PokedexFragment : Fragment() {
 
     private val pokedexViewModel by viewModel<PokedexViewModel>()
+    private val dialog by lazy { createProgressDialog() }
+    private val adapter by lazy { PokemonAdapter() }
     private var _binding: FragmentPokedexBinding? = null
 
     // This property is only valid between onCreateView and
@@ -31,9 +35,24 @@ class PokedexFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.rvPokemon.adapter = adapter
+
         pokedexViewModel.pokemon.observe(viewLifecycleOwner){
             when(it){
-
+                PokedexViewModel.State.Loading -> {
+                    dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                    dialog.show()
+                }
+                is PokedexViewModel.State.Error -> {
+                    createDialog {
+                        setMessage(it.error.message)
+                    }.show()
+                    dialog.dismiss()
+                }
+                is PokedexViewModel.State.Success -> {
+                    dialog.dismiss()
+                    adapter.submitList(it.pokemonList)
+                }
             }
         }
     }
