@@ -3,6 +3,7 @@
   "id": 1,
   "name": "bulbasaur",
   "sprites": {
+    "front_default": "https://raw.githubuserco…er/sprites/pokemon/1.png",
     "versions": {
       "generation-v": {
         "black-white": {

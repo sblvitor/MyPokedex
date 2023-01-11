@@ -1,11 +1,10 @@
 package com.lira.mypokedex.data.repositories
 
-import com.lira.mypokedex.data.model.PokemonList
+import com.lira.mypokedex.data.model.Pokemon
 import kotlinx.coroutines.flow.Flow
-import retrofit2.Response
 
 interface PokemonRepository {
 
-    suspend fun listPokemon(): Flow<Response<PokemonList>>
+    suspend fun listPokemon(pokemonId: Int): Flow<Pokemon>
 
 }

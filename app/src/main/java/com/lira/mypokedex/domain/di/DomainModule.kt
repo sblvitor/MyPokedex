@@ -1,6 +1,6 @@
 package com.lira.mypokedex.domain.di
 
-import com.lira.mypokedex.domain.ListAllPokemonUseCase
+import com.lira.mypokedex.domain.GetTenPokemonUseCase
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -13,7 +13,7 @@ object DomainModule {
 
     private fun useCaseModule(): Module {
         return module {
-            factory { ListAllPokemonUseCase(get()) }
+            factory { GetTenPokemonUseCase(get()) }
         }
     }
 

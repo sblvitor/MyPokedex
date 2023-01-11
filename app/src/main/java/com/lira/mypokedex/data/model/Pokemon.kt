@@ -10,6 +10,7 @@ data class Pokemon (
 )
 
 data class Sprites (
+    val frontDefault: String,
     val versions: Versions
 )
 

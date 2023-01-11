@@ -4,22 +4,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lira.mypokedex.data.model.PokemonList
-import com.lira.mypokedex.domain.ListAllPokemonUseCase
+import com.lira.mypokedex.data.model.Pokemon
+import com.lira.mypokedex.domain.GetTenPokemonUseCase
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class PokedexViewModel(private val listAllPokemonUseCase: ListAllPokemonUseCase) : ViewModel() {
+class PokedexViewModel(private val getTenPokemonUseCase: GetTenPokemonUseCase) : ViewModel() {
 
     private val _pokemon = MutableLiveData<State>()
     val pokemon: LiveData<State> = _pokemon
 
-    private fun getAllPokemonList(){
+    init {
+        getTenPokemon()
+    }
+
+    private fun getTenPokemon(){
         viewModelScope.launch {
-            listAllPokemonUseCase()
+            getTenPokemonUseCase()
                 .onStart {
                     _pokemon.postValue(State.Loading)
                 }.catch {
@@ -32,7 +35,7 @@ class PokedexViewModel(private val listAllPokemonUseCase: ListAllPokemonUseCase)
 
     sealed class State {
         object Loading: State()
-        data class Success(val list: Response<PokemonList>): State()
+        data class Success(val pokemonList: List<Pokemon>): State()
         data class Error(val error: Throwable): State()
     }
 
