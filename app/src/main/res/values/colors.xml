@@ -9,4 +9,23 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="red">#FF0000</color>
+
+    <color name="fire">#FDA05A</color>
+    <color name="agua">#5895D6</color>
+    <color name="grama">#64BC5B</color>
+    <color name="voador">#87AFE2</color>
+    <color name="poison">#B568CE</color>
+    <color name="inseto">#90C12C</color>
+    <color name="fantasma">#5269AC</color>
+    <color name="aco">#5A8EA1</color>
+    <color name="eletrico">#F3D23B</color>
+    <color name="psiquico">#F97176</color>
+    <color name="ice">#74CEC0</color>
+    <color name="dragao">#096DC4</color>
+    <color name="dark">#5A5366</color>
+    <color name="fada">#FEF8FE</color>
+    <color name="normal">#9099A1</color>
+    <color name="lutador">#CE4069</color>
+    <color name="ground">#D97746</color>
+    <color name="rock">#C7B78B</color>
 </resources>

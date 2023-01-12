@@ -2,6 +2,7 @@ package com.lira.mypokedex.ui.pokedex
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,12 @@ class PokemonAdapter: ListAdapter<Pokemon, PokemonAdapter.ViewHolder>(DiffCallba
                 .with(binding.root.context)
                 .load(item.sprites.frontDefault)
                 .into(binding.ivPokemon)
+
+            itemView.setOnClickListener {
+                val action = PokedexFragmentDirections.actionNavigationPokedexToNavigationPokemonDetail(item)
+                it.findNavController().navigate(action)
+            }
+
         }
     }
 

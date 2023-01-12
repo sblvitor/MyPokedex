@@ -4,4 +4,10 @@
     <string name="title_pokedex">Pokédex</string>
     <string name="title_favorites">Favoritos</string>
     <string name="title_menu">Menu</string>
+    <string name="cd_pokemon">Pokemon</string>
+    <string name="number">#</string>
+    <string name="tv_height">Altura</string>
+    <string name="height_image_cd">imagem da altura</string>
+    <string name="tv_weight">Peso</string>
+    <string name="weight_image_cd">imagem do peso</string>
 </resources>

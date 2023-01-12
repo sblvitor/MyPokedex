@@ -9,7 +9,28 @@
         android:id="@+id/navigation_pokedex"
         android:name="com.lira.mypokedex.ui.pokedex.PokedexFragment"
         android:label="@string/title_pokedex"
-        tools:layout="@layout/fragment_pokedex" />
+        tools:layout="@layout/fragment_pokedex" >
+        <action
+            android:id="@+id/action_navigation_pokedex_to_navigation_pokemon_detail"
+            app:destination="@id/navigation_pokemon_detail"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_pokemon_detail"
+        android:name="com.lira.mypokedex.ui.pokemonDetail.PokemonDetailFragment"
+        android:label="Pokemon Detail"
+        tools:layout="@layout/fragment_pokemon_detail" >
+        <argument
+            android:name="pokemon"
+            app:argType="com.lira.mypokedex.data.model.Pokemon" />
+        <action
+            android:id="@+id/action_navigation_pokemon_detail_to_navigation_pokedex"
+            app:destination="@id/navigation_pokedex"
+            app:popUpTo="@id/navigation_pokedex"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorites"
