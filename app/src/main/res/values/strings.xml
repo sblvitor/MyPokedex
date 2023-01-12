@@ -9,4 +9,5 @@
     <string name="height_image_cd">height image</string>
     <string name="tv_weight">Weight</string>
     <string name="weight_image_cd">weight image</string>
+    <string name="pokemon_detail">Pokemon Detail</string>
 </resources>

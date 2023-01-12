@@ -20,16 +20,11 @@
     <fragment
         android:id="@+id/navigation_pokemon_detail"
         android:name="com.lira.mypokedex.ui.pokemonDetail.PokemonDetailFragment"
-        android:label="Pokemon Detail"
+        android:label="@string/pokemon_detail"
         tools:layout="@layout/fragment_pokemon_detail" >
         <argument
             android:name="pokemon"
             app:argType="com.lira.mypokedex.data.model.Pokemon" />
-        <action
-            android:id="@+id/action_navigation_pokemon_detail_to_navigation_pokedex"
-            app:destination="@id/navigation_pokedex"
-            app:popUpTo="@id/navigation_pokedex"
-            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
