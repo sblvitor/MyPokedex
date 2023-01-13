@@ -12,6 +12,7 @@ import com.lira.mypokedex.core.createDialog
 import com.lira.mypokedex.core.createProgressDialog
 import com.lira.mypokedex.databinding.FragmentPokedexBinding
 import com.lira.mypokedex.presentation.PokedexViewModel
+import com.lira.mypokedex.ui.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PokedexFragment : Fragment() {
@@ -35,6 +36,8 @@ class PokedexFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupActionBar()
+
         binding.rvPokemon.adapter = adapter
 
         pokedexViewModel.pokemon.observe(viewLifecycleOwner){
@@ -55,6 +58,10 @@ class PokedexFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as MainActivity).setSupportActionBar(binding.pokedexToolbar)
     }
 
     override fun onDestroyView() {

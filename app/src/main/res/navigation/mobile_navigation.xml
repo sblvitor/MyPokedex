@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/navigation_pokemon_detail"
         android:name="com.lira.mypokedex.ui.pokemonDetail.PokemonDetailFragment"
-        android:label="@string/pokemon_detail"
+        android:label="@string/title_pokemon_detail"
         tools:layout="@layout/fragment_pokemon_detail" >
         <argument
             android:name="pokemon"

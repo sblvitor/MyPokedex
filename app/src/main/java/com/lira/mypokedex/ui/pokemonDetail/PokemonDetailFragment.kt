@@ -1,14 +1,17 @@
 package com.lira.mypokedex.ui.pokemonDetail
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.lira.mypokedex.R
 import com.lira.mypokedex.databinding.FragmentPokemonDetailBinding
+import com.lira.mypokedex.ui.MainActivity
 
 class PokemonDetailFragment : Fragment() {
 
@@ -29,6 +32,8 @@ class PokemonDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupActionBarAndMenu()
 
         val pokemon = args.pokemon
 
@@ -236,6 +241,27 @@ class PokemonDetailFragment : Fragment() {
             val weightValue = (pokemon.weight / 10F).toString() + " " + "kg"
             tvWeightValue.text = weightValue
         }
+    }
+
+    private fun setupActionBarAndMenu() {
+        (requireActivity() as MainActivity).setSupportActionBar(binding.pokemonDetailToolbar)
+        binding.pokemonDetailToolbar.setNavigationOnClickListener {
+            requireActivity().findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
+        }
+
+        (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
+
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.pokemon_detail_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // logica quando pressionar o favorito
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
     }
 
     override fun onDestroyView() {

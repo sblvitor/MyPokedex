@@ -10,5 +10,6 @@
     <string name="height_image_cd">imagem da altura</string>
     <string name="tv_weight">Peso</string>
     <string name="weight_image_cd">imagem do peso</string>
-    <string name="pokemon_detail">Detalhes do Pokemon</string>
+    <string name="title_pokemon_detail">Detalhes do Pokemon</string>
+    <string name="favorite_menu_title">Favorito</string>
 </resources>
