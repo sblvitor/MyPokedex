@@ -18,7 +18,7 @@ class PokemonDetailFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    val args: PokemonDetailFragmentArgs by navArgs()
+    private val args: PokemonDetailFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -72,6 +72,66 @@ class PokemonDetailFragment : Fragment() {
                     chipTypeOne.setChipBackgroundColorResource(R.color.inseto)
                     chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
                 }
+                "ghost" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.fantasma)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.fantasma)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "steel" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.aco)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.aco)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "ice" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.gelo)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.ice)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "normal" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.normal)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.normal)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "fighting" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.lutador)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.lutador)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "rock" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.pedra)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.rock)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "ground" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.terra)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.ground)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "fairy" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.fada)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.fada)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "psychic" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.psiquico)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.psiquico)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "dark" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.dark)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.dark)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "dragon" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.dragao)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.dragao)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
+                "electric" -> {
+                    chipTypeOne.setChipIconResource(R.drawable.eletrico)
+                    chipTypeOne.setChipBackgroundColorResource(R.color.eletrico)
+                    chipTypeOne.text = pokemon.types[0].type.name.replaceFirstChar { it.uppercase() }
+                }
             }
 
             if(pokemon.types.size > 1) {
@@ -107,10 +167,70 @@ class PokemonDetailFragment : Fragment() {
                         chipTypeTwo.setChipBackgroundColorResource(R.color.inseto)
                         chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
                     }
+                    "ghost" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.fantasma)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.fantasma)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "steel" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.aco)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.aco)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "ice" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.gelo)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.ice)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "normal" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.normal)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.normal)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "fighting" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.lutador)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.lutador)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "rock" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.pedra)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.rock)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "ground" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.terra)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.ground)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "fairy" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.fada)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.fada)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "psychic" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.psiquico)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.psiquico)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "dark" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.dark)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.dark)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "dragon" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.dragao)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.dragao)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
+                    "electric" -> {
+                        chipTypeTwo.setChipIconResource(R.drawable.eletrico)
+                        chipTypeTwo.setChipBackgroundColorResource(R.color.eletrico)
+                        chipTypeTwo.text = pokemon.types[1].type.name.replaceFirstChar { it.uppercase() }
+                    }
                 }
             }
 
-            val heightValue = pokemon.height.toString() + " " + "dm"
+            val heightValue = (pokemon.height * 10).toString() + " " + "cm"
             tvHeightValue.text = heightValue
 
             val weightValue = (pokemon.weight / 10F).toString() + " " + "kg"
