@@ -2,24 +2,27 @@ package com.lira.mypokedex.data.di
 
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.lira.mypokedex.data.repositories.PokeDBRepository
+import com.lira.mypokedex.data.repositories.PokeDBRepositoryImpl
 import com.lira.mypokedex.data.repositories.PokemonRepository
 import com.lira.mypokedex.data.repositories.PokemonRepositoryImpl
+import com.lira.mypokedex.data.room.PokemonDatabase
 import com.lira.mypokedex.data.services.PokemonService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 object DataModule {
 
     private const val OK_HTTP: String = "OkHttp"
 
     fun load(){
-        loadKoinModules(networkModules() + repositoriesModule())
+        loadKoinModules(networkModules() + repositoriesModule() + daoModule())
     }
 
     // Criado para expor o metodo de createService
@@ -51,6 +54,13 @@ object DataModule {
     private fun repositoriesModule(): Module{
         return module {
             single<PokemonRepository> { PokemonRepositoryImpl(get()) }
+            single<PokeDBRepository> { PokeDBRepositoryImpl(get()) }
+        }
+    }
+
+    private fun daoModule(): Module {
+        return module {
+            single { PokemonDatabase.getInstance(androidContext()).pokemonDao() }
         }
     }
 

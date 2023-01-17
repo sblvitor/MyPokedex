@@ -1,6 +1,7 @@
 package com.lira.mypokedex.presentation.di
 
 import com.lira.mypokedex.presentation.PokedexViewModel
+import com.lira.mypokedex.presentation.PokemonDetailViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
@@ -15,6 +16,7 @@ object PresentationModule {
     private fun viewModelModule(): Module {
         return module {
             viewModel { PokedexViewModel(get()) }
+            viewModel { PokemonDetailViewModel(get(), get()) }
         }
     }
 
