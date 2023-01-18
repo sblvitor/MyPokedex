@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.lira.mypokedex.data.model.PokemonDB
 import com.lira.mypokedex.databinding.ItemPokemonFavBinding
 
-class FavPokemonAdapter: ListAdapter<PokemonDB, FavPokemonAdapter.ViewHolder>(DiffCallback()) {
+class FavPokemonAdapter(private val onClickListener: OnClickListener): ListAdapter<PokemonDB, FavPokemonAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -30,7 +30,9 @@ class FavPokemonAdapter: ListAdapter<PokemonDB, FavPokemonAdapter.ViewHolder>(Di
                 .load(item.img)
                 .into(binding.ivPokemonFav)
 
-            //logica btn fav
+            binding.ibFavorite.setOnClickListener {
+                onClickListener.onClick(item)
+            }
         }
 
     }
@@ -39,6 +41,10 @@ class FavPokemonAdapter: ListAdapter<PokemonDB, FavPokemonAdapter.ViewHolder>(Di
         override fun areItemsTheSame(oldItem: PokemonDB, newItem: PokemonDB) = oldItem == newItem
 
         override fun areContentsTheSame(oldItem: PokemonDB, newItem: PokemonDB) = oldItem.id == newItem.id
+    }
+
+    class OnClickListener(val clickListener: (pokemon: PokemonDB) -> Unit) {
+        fun onClick(pokemon: PokemonDB) = clickListener(pokemon)
     }
 
 }

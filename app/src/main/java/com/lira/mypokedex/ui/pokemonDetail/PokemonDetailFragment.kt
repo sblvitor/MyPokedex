@@ -57,7 +57,7 @@ class PokemonDetailFragment : Fragment() {
                     requireActivity().invalidateOptionsMenu()
                 }
                 is PokemonDetailViewModel.GetOrInsert.Insert -> {
-                    Log.e("haha", "Inserido")
+                    Log.d("TAG", "Inserido")
                 }
             }
         }

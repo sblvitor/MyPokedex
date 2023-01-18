@@ -1,9 +1,6 @@
 package com.lira.mypokedex.data.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.lira.mypokedex.data.model.PokemonDB
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +15,7 @@ interface PokemonDao {
 
     @Query("SELECT * FROM pokemon WHERE id == :id")
     fun getFavoritePokemonById(id: Long): Flow<PokemonDB?>
+
+    @Delete
+    suspend fun deleteFavPokemon(pokemon: PokemonDB)
 }

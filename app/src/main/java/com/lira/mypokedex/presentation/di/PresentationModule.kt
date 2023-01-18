@@ -18,7 +18,7 @@ object PresentationModule {
         return module {
             viewModel { PokedexViewModel(get()) }
             viewModel { PokemonDetailViewModel(get(), get()) }
-            viewModel { FavoritesViewModel(get()) }
+            viewModel { FavoritesViewModel(get(), get()) }
         }
     }
 
