@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.lira.mypokedex.data.model.Pokemon
 import com.lira.mypokedex.data.model.PokemonDB
 
 @Database(entities = [PokemonDB::class], version = 1)

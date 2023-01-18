@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.lira.mypokedex.data.model.Pokemon
 import com.lira.mypokedex.data.model.PokemonDB
 import kotlinx.coroutines.flow.Flow
 
@@ -16,4 +15,7 @@ interface PokemonDao {
 
     @Query("SELECT * FROM pokemon")
     fun getAllPokemon(): Flow<List<PokemonDB>>
+
+    @Query("SELECT * FROM pokemon WHERE id == :id")
+    fun getFavoritePokemonById(id: Long): Flow<PokemonDB?>
 }

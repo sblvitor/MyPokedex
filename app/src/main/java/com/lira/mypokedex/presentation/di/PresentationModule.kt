@@ -1,5 +1,6 @@
 package com.lira.mypokedex.presentation.di
 
+import com.lira.mypokedex.presentation.FavoritesViewModel
 import com.lira.mypokedex.presentation.PokedexViewModel
 import com.lira.mypokedex.presentation.PokemonDetailViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -17,6 +18,7 @@ object PresentationModule {
         return module {
             viewModel { PokedexViewModel(get()) }
             viewModel { PokemonDetailViewModel(get(), get()) }
+            viewModel { FavoritesViewModel(get()) }
         }
     }
 

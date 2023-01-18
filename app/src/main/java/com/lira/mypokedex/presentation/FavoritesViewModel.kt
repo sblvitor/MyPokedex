@@ -3,11 +3,42 @@ package com.lira.mypokedex.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.lira.mypokedex.data.model.PokemonDB
+import com.lira.mypokedex.domain.GetAllFavoritePokemonUseCase
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 
-class FavoritesViewModel : ViewModel() {
+class FavoritesViewModel(private val getAllFavoritePokemonUseCase: GetAllFavoritePokemonUseCase) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    private val _favPokemon = MutableLiveData<State>()
+    val favPokemon: LiveData<State> = _favPokemon
+
+    init {
+        getAllFavoritePokemonFav()
     }
-    val text: LiveData<String> = _text
+
+    private fun getAllFavoritePokemonFav() {
+        viewModelScope.launch {
+            getAllFavoritePokemonUseCase()
+                .onStart {
+                    _favPokemon.postValue(State.Loading)
+                }
+                .catch {
+                    _favPokemon.postValue(State.Error(it))
+                }
+                .collect {
+                    _favPokemon.postValue(State.Success(it))
+                }
+
+        }
+    }
+
+    sealed class State() {
+        object Loading: State()
+        data class Success(val pokemonList: List<PokemonDB>): State()
+        data class Error(val error: Throwable): State()
+    }
+
 }

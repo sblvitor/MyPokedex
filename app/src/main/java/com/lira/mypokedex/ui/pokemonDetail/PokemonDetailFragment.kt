@@ -1,6 +1,7 @@
 package com.lira.mypokedex.ui.pokemonDetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
@@ -29,6 +30,8 @@ class PokemonDetailFragment : Fragment() {
 
     private val args: PokemonDetailFragmentArgs by navArgs()
 
+    private var favPokemon: PokemonDB? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
@@ -39,15 +42,25 @@ class PokemonDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupActionBar()
+
         val pokemon = args.pokemon
 
-        val pokemonDBList = mutableListOf<PokemonDB>()
+        pokemonDetailViewModel.getFavoritePokemonById(pokemon.id)
 
-        pokemonDetailViewModel.favPokemonList.observe(viewLifecycleOwner) {
-            pokemonDBList.addAll(it)
-            setupActionBarAndMenu(pokemon, pokemonDBList)
+        setupMenu(pokemon)
+
+        pokemonDetailViewModel.favPokemon.observe(viewLifecycleOwner) {
+            when (it) {
+                is PokemonDetailViewModel.GetOrInsert.Get -> {
+                    favPokemon = it.pokemon
+                    requireActivity().invalidateOptionsMenu()
+                }
+                is PokemonDetailViewModel.GetOrInsert.Insert -> {
+                    Log.e("haha", "Inserido")
+                }
+            }
         }
-
 
         binding.apply {
             Glide.with(requireContext())
@@ -255,24 +268,21 @@ class PokemonDetailFragment : Fragment() {
         }
     }
 
-    private fun setupActionBarAndMenu(pokemon: Pokemon, pokemonDBList: MutableList<PokemonDB>) {
+    private fun setupActionBar() {
         (requireActivity() as MainActivity).setSupportActionBar(binding.pokemonDetailToolbar)
         binding.pokemonDetailToolbar.setNavigationOnClickListener {
             requireActivity().findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
         }
 
+    }
+
+    private fun setupMenu(pokemon: Pokemon) {
         (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
 
             override fun onPrepareMenu(menu: Menu) {
-                //super.onPrepareMenu(menu)
-                var fav = false
-                pokemonDBList.forEach {
-                    if(pokemon.id == it.id) fav = true
-                }
-                if(fav){
+                super.onPrepareMenu(menu)
+                if(favPokemon != null)
                     menu.findItem(R.id.favorite_button).icon = ResourcesCompat.getDrawable(resources, R.drawable.favorite_filled, null)
-                }
-
             }
 
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -280,14 +290,12 @@ class PokemonDetailFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // logica quando pressionar o favorito
                 pokemonDetailViewModel.insertPokemon(PokemonDB(pokemon.id, pokemon.name, pokemon.sprites.frontDefault))
                 menuItem.icon = ResourcesCompat.getDrawable(resources, R.drawable.favorite_filled, null)
                 return true
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
     }
 
     override fun onDestroyView() {

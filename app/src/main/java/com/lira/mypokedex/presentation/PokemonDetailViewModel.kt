@@ -1,40 +1,41 @@
 package com.lira.mypokedex.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lira.mypokedex.data.model.Pokemon
 import com.lira.mypokedex.data.model.PokemonDB
-import com.lira.mypokedex.domain.GetAllFavoritePokemonUseCase
+import com.lira.mypokedex.domain.GetFavoritePokemonByIdUseCase
 import com.lira.mypokedex.domain.InsertPokemonIntoDBUseCase
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class PokemonDetailViewModel(private val insertPokemonIntoDBUseCase: InsertPokemonIntoDBUseCase,
-                             private val getAllFavoritePokemonUseCase: GetAllFavoritePokemonUseCase): ViewModel() {
+                             private val getFavoritePokemonByIdUseCase: GetFavoritePokemonByIdUseCase): ViewModel() {
 
-    private val _favPokemonList = MutableLiveData<List<PokemonDB>>()
-    val favPokemonList: LiveData<List<PokemonDB>> = _favPokemonList
+    private val _favPokemon = MutableLiveData<GetOrInsert>()
+    val favPokemon: LiveData<GetOrInsert> = _favPokemon
 
-    init {
-        getAllFavoritePokemon()
-    }
 
     fun insertPokemon(pokemon: PokemonDB) {
         viewModelScope.launch {
-            insertPokemonIntoDBUseCase(pokemon)
+            insertPokemonIntoDBUseCase(pokemon).collect {
+                _favPokemon.postValue(GetOrInsert.Insert(true))
+            }
         }
     }
 
-    private fun getAllFavoritePokemon() {
+    fun getFavoritePokemonById(id: Long) {
         viewModelScope.launch {
-            getAllFavoritePokemonUseCase()
+            getFavoritePokemonByIdUseCase(id)
                 .collect {
-                    _favPokemonList.postValue(it)
-                }
+                    _favPokemon.postValue(GetOrInsert.Get(it))
+            }
         }
+    }
+
+    sealed class GetOrInsert {
+        data class Get(val pokemon: PokemonDB?): GetOrInsert()
+        data class Insert(val ok: Boolean): GetOrInsert()
     }
 
 }
