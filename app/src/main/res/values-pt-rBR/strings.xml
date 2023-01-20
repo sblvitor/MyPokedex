@@ -12,4 +12,5 @@
     <string name="weight_image_cd">imagem do peso</string>
     <string name="title_pokemon_detail">Detalhes do Pokemon</string>
     <string name="favorite_menu_title">Favorito</string>
+    <string name="txt_search">Buscar</string>
 </resources>

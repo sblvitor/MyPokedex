@@ -7,4 +7,6 @@ interface PokemonRepository {
 
     suspend fun listPokemon(pokemonId: Int): Flow<Pokemon>
 
+    suspend fun getPokemonByName(pokemonName: String): Flow<Pokemon>
+
 }

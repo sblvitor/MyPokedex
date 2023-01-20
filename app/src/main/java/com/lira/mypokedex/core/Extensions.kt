@@ -1,5 +1,8 @@
 package com.lira.mypokedex.core
 
+import android.app.Activity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -23,4 +26,9 @@ fun Fragment.createProgressDialog(): AlertDialog {
         setPositiveButton(null, null)
         setCancelable(false)
     }
+}
+
+fun View.hideSoftKeyBoard() {
+    val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
 }

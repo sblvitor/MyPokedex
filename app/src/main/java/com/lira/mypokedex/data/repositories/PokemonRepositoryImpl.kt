@@ -15,4 +15,13 @@ class PokemonRepositoryImpl(private val service: PokemonService): PokemonReposit
             throw RemoteException(ex.message ?: "Não foi possível realizar a busca!")
         }
     }
+
+    override suspend fun getPokemonByName(pokemonName: String) = flow {
+        try {
+            val pokemon = service.getPokemonByName(pokemonName)
+            emit(pokemon)
+        } catch (ex: HttpException) {
+            throw RemoteException(ex.message ?: "Não foi possível realizar a busca!")
+        }
+    }
 }

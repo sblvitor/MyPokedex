@@ -18,6 +18,7 @@ object DomainModule {
             factory { GetAllFavoritePokemonUseCase(get()) }
             factory { GetFavoritePokemonByIdUseCase(get()) }
             factory { DeleteFavPokemonUseCase(get()) }
+            factory { GetPokemonByNameUseCase(get()) }
         }
     }
 

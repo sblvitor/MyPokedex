@@ -9,4 +9,7 @@ interface PokemonService {
     @GET("pokemon/{id}/")
     suspend fun listPokemon(@Path("id") pokemonId: Int): Pokemon
 
+    @GET("pokemon/{name}/")
+    suspend fun getPokemonByName(@Path("name") pokemonName: String): Pokemon
+
 }

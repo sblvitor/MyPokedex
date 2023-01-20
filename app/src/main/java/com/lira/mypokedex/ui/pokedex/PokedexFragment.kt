@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.lira.mypokedex.R
 import com.lira.mypokedex.core.createDialog
 import com.lira.mypokedex.core.createProgressDialog
+import com.lira.mypokedex.core.hideSoftKeyBoard
 import com.lira.mypokedex.databinding.FragmentPokedexBinding
 import com.lira.mypokedex.presentation.PokedexViewModel
-import com.lira.mypokedex.ui.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PokedexFragment : Fragment() {
+class PokedexFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private val pokedexViewModel by viewModel<PokedexViewModel>()
     private val dialog by lazy { createProgressDialog() }
@@ -36,7 +36,7 @@ class PokedexFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupActionBar()
+        setupMenu()
 
         binding.rvPokemon.adapter = adapter
 
@@ -60,8 +60,32 @@ class PokedexFragment : Fragment() {
         }
     }
 
-    private fun setupActionBar() {
-        (requireActivity() as MainActivity).setSupportActionBar(binding.pokedexToolbar)
+    private fun setupMenu() {
+        binding.pokedexToolbar.inflateMenu(R.menu.search_menu)
+        val searchView = binding.pokedexToolbar.menu.findItem(R.id.action_search).actionView as SearchView
+        searchView.setOnQueryTextListener(this)
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(!searchView.isIconified) {
+                    binding.pokedexToolbar.collapseActionView()
+                } else {
+                    this.isEnabled = false
+                    pokedexViewModel.getTenPokemon()
+                    //activity?.finish()
+                }
+            }
+        })
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        query?.let { pokedexViewModel.getPokemonByName(it) }
+        binding.root.hideSoftKeyBoard()
+        return true
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        return false
     }
 
     override fun onDestroyView() {
