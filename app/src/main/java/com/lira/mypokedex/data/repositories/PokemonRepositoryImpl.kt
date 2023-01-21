@@ -21,7 +21,7 @@ class PokemonRepositoryImpl(private val service: PokemonService): PokemonReposit
             val pokemon = service.getPokemonByName(pokemonName)
             emit(pokemon)
         } catch (ex: HttpException) {
-            throw RemoteException(ex.message ?: "Não foi possível realizar a busca!")
+            throw RemoteException("Nenhum pokemon encontrado com esse nome!")
         }
     }
 }
