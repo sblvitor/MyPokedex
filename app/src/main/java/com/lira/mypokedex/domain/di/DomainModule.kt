@@ -13,7 +13,7 @@ object DomainModule {
 
     private fun useCaseModule(): Module {
         return module {
-            factory { GetTenPokemonUseCase(get()) }
+            factory { GetListOfPokemonUseCase(get()) }
             factory { InsertPokemonIntoDBUseCase(get()) }
             factory { GetAllFavoritePokemonUseCase(get()) }
             factory { GetFavoritePokemonByIdUseCase(get()) }

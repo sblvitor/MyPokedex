@@ -23,8 +23,8 @@
         android:label="@string/title_pokemon_detail"
         tools:layout="@layout/fragment_pokemon_detail" >
         <argument
-            android:name="pokemon"
-            app:argType="com.lira.mypokedex.data.model.Pokemon" />
+            android:name="pokemon_name"
+            app:argType="string" />
     </fragment>
 
     <fragment

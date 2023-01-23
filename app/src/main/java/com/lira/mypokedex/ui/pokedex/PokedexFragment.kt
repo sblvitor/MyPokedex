@@ -71,7 +71,7 @@ class PokedexFragment : Fragment(), SearchView.OnQueryTextListener {
                     binding.pokedexToolbar.collapseActionView()
                 } else {
                     this.isEnabled = false
-                    pokedexViewModel.getTenPokemon()
+                    pokedexViewModel.getPokemonList()
                     //activity?.finish()
                 }
             }

@@ -44,24 +44,61 @@ class PokemonDetailFragment : Fragment() {
 
         setupActionBar()
 
-        val pokemon = args.pokemon
+        val pokemonName = args.pokemonName
 
-        pokemonDetailViewModel.getFavoritePokemonById(pokemon.id)
+        pokemonDetailViewModel.getPokemon(pokemonName)
 
-        setupMenu(pokemon)
-
-        pokemonDetailViewModel.favPokemon.observe(viewLifecycleOwner) {
+        pokemonDetailViewModel.pokemon.observe(viewLifecycleOwner) {
             when (it) {
-                is PokemonDetailViewModel.GetOrInsert.Get -> {
+                is PokemonDetailViewModel.Method.Get -> {
                     favPokemon = it.pokemon
                     requireActivity().invalidateOptionsMenu()
                 }
-                is PokemonDetailViewModel.GetOrInsert.Insert -> {
+                is PokemonDetailViewModel.Method.Insert -> {
                     Log.d("TAG", "Inserido")
+                }
+                is PokemonDetailViewModel.Method.GetFromApi -> {
+                    setupUI(it.pokemon)
+                    pokemonDetailViewModel.getFavoritePokemonById(it.pokemon.id)
+                    setupMenu(it.pokemon)
                 }
             }
         }
 
+
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as MainActivity).setSupportActionBar(binding.pokemonDetailToolbar)
+        binding.pokemonDetailToolbar.setNavigationOnClickListener {
+            requireActivity().findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
+        }
+
+    }
+
+    private fun setupMenu(pokemon: Pokemon) {
+        (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
+
+            override fun onPrepareMenu(menu: Menu) {
+                super.onPrepareMenu(menu)
+                if(favPokemon != null)
+                    menu.findItem(R.id.favorite_button).icon = ResourcesCompat.getDrawable(resources, R.drawable.favorite_filled, null)
+            }
+
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.pokemon_detail_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                pokemonDetailViewModel.insertPokemon(PokemonDB(pokemon.id, pokemon.name, pokemon.sprites.frontDefault))
+                menuItem.icon = ResourcesCompat.getDrawable(resources, R.drawable.favorite_filled, null)
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun setupUI(pokemon: Pokemon) {
         binding.apply {
             Glide.with(requireContext())
                 .asGif()
@@ -266,36 +303,6 @@ class PokemonDetailFragment : Fragment() {
             val weightValue = (pokemon.weight / 10F).toString() + " " + "kg"
             tvWeightValue.text = weightValue
         }
-    }
-
-    private fun setupActionBar() {
-        (requireActivity() as MainActivity).setSupportActionBar(binding.pokemonDetailToolbar)
-        binding.pokemonDetailToolbar.setNavigationOnClickListener {
-            requireActivity().findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
-        }
-
-    }
-
-    private fun setupMenu(pokemon: Pokemon) {
-        (requireActivity() as MenuHost).addMenuProvider(object: MenuProvider {
-
-            override fun onPrepareMenu(menu: Menu) {
-                super.onPrepareMenu(menu)
-                if(favPokemon != null)
-                    menu.findItem(R.id.favorite_button).icon = ResourcesCompat.getDrawable(resources, R.drawable.favorite_filled, null)
-            }
-
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.pokemon_detail_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                pokemonDetailViewModel.insertPokemon(PokemonDB(pokemon.id, pokemon.name, pokemon.sprites.frontDefault))
-                menuItem.icon = ResourcesCompat.getDrawable(resources, R.drawable.favorite_filled, null)
-                return true
-            }
-
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onDestroyView() {

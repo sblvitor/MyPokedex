@@ -4,22 +4,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lira.mypokedex.data.model.Pokemon
 import com.lira.mypokedex.data.model.PokemonDB
 import com.lira.mypokedex.domain.GetFavoritePokemonByIdUseCase
+import com.lira.mypokedex.domain.GetPokemonByNameUseCase
 import com.lira.mypokedex.domain.InsertPokemonIntoDBUseCase
 import kotlinx.coroutines.launch
 
 class PokemonDetailViewModel(private val insertPokemonIntoDBUseCase: InsertPokemonIntoDBUseCase,
-                             private val getFavoritePokemonByIdUseCase: GetFavoritePokemonByIdUseCase): ViewModel() {
+                             private val getFavoritePokemonByIdUseCase: GetFavoritePokemonByIdUseCase,
+                             private val getPokemonByNameUseCase: GetPokemonByNameUseCase): ViewModel() {
 
-    private val _favPokemon = MutableLiveData<GetOrInsert>()
-    val favPokemon: LiveData<GetOrInsert> = _favPokemon
+    private val _pokemon = MutableLiveData<Method>()
+    val pokemon: LiveData<Method> = _pokemon
 
+
+    fun getPokemon(name: String) {
+        viewModelScope.launch {
+            getPokemonByNameUseCase(name).collect {
+                _pokemon.postValue(Method.GetFromApi(it))
+            }
+        }
+    }
 
     fun insertPokemon(pokemon: PokemonDB) {
         viewModelScope.launch {
             insertPokemonIntoDBUseCase(pokemon).collect {
-                _favPokemon.postValue(GetOrInsert.Insert(true))
+                _pokemon.postValue(Method.Insert(true))
             }
         }
     }
@@ -28,14 +39,15 @@ class PokemonDetailViewModel(private val insertPokemonIntoDBUseCase: InsertPokem
         viewModelScope.launch {
             getFavoritePokemonByIdUseCase(id)
                 .collect {
-                    _favPokemon.postValue(GetOrInsert.Get(it))
+                    _pokemon.postValue(Method.Get(it))
             }
         }
     }
 
-    sealed class GetOrInsert {
-        data class Get(val pokemon: PokemonDB?): GetOrInsert()
-        data class Insert(val ok: Boolean): GetOrInsert()
+    sealed class Method {
+        data class Get(val pokemon: PokemonDB?): Method()
+        data class Insert(val ok: Boolean): Method()
+        data class GetFromApi(val pokemon: Pokemon): Method()
     }
 
 }

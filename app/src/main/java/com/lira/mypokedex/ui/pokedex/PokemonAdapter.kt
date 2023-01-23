@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.lira.mypokedex.data.model.Pokemon
+import com.lira.mypokedex.data.model.PokemonList
 import com.lira.mypokedex.databinding.ItemPokemonBinding
 
-class PokemonAdapter: ListAdapter<Pokemon, PokemonAdapter.ViewHolder>(DiffCallback()) {
+class PokemonAdapter: ListAdapter<PokemonList, PokemonAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,25 +24,25 @@ class PokemonAdapter: ListAdapter<Pokemon, PokemonAdapter.ViewHolder>(DiffCallba
 
     inner class ViewHolder(private val binding: ItemPokemonBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Pokemon) {
+        fun bind(item: PokemonList) {
             binding.tvPokemonName.text = item.name.replaceFirstChar { it.uppercase() }
             Glide
                 .with(binding.root.context)
-                .load(item.sprites.frontDefault)
+                .load(item.imgUrl)
                 .into(binding.ivPokemon)
 
             itemView.setOnClickListener {
-                val action = PokedexFragmentDirections.actionNavigationPokedexToNavigationPokemonDetail(item)
+                val action = PokedexFragmentDirections.actionNavigationPokedexToNavigationPokemonDetail(item.name)
                 it.findNavController().navigate(action)
             }
 
         }
     }
 
-    class DiffCallback: DiffUtil.ItemCallback<Pokemon>() {
-        override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon) = oldItem == newItem
+    class DiffCallback: DiffUtil.ItemCallback<PokemonList>() {
+        override fun areItemsTheSame(oldItem: PokemonList, newItem: PokemonList) = oldItem == newItem
 
-        override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: PokemonList, newItem: PokemonList) = oldItem.name == newItem.name
     }
 
 }
