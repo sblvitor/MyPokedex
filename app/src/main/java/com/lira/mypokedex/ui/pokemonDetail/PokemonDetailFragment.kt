@@ -12,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.lira.mypokedex.R
+import com.lira.mypokedex.core.createDialog
+import com.lira.mypokedex.core.createProgressDialog
 import com.lira.mypokedex.data.model.Pokemon
 import com.lira.mypokedex.data.model.PokemonDB
 import com.lira.mypokedex.databinding.FragmentPokemonDetailBinding
@@ -23,6 +25,7 @@ class PokemonDetailFragment : Fragment() {
 
     private var _binding: FragmentPokemonDetailBinding? = null
     private val pokemonDetailViewModel by viewModel<PokemonDetailViewModel>()
+    private val dialog by lazy { createProgressDialog() }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -50,7 +53,17 @@ class PokemonDetailFragment : Fragment() {
 
         pokemonDetailViewModel.pokemon.observe(viewLifecycleOwner) {
             when (it) {
-                is PokemonDetailViewModel.Method.Get -> {
+                is PokemonDetailViewModel.Method.Loading -> {
+                    dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                    dialog.show()
+                }
+                is PokemonDetailViewModel.Method.Error -> {
+                    createDialog {
+                        setMessage(it.error.message)
+                    }.show()
+                    dialog.dismiss()
+                }
+                is PokemonDetailViewModel.Method.GetFromDB -> {
                     favPokemon = it.pokemon
                     requireActivity().invalidateOptionsMenu()
                 }
@@ -58,6 +71,7 @@ class PokemonDetailFragment : Fragment() {
                     Log.d("TAG", "Inserido")
                 }
                 is PokemonDetailViewModel.Method.GetFromApi -> {
+                    dialog.dismiss()
                     setupUI(it.pokemon)
                     pokemonDetailViewModel.getFavoritePokemonById(it.pokemon.id)
                     setupMenu(it.pokemon)

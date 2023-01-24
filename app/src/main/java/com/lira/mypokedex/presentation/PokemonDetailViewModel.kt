@@ -9,6 +9,8 @@ import com.lira.mypokedex.data.model.PokemonDB
 import com.lira.mypokedex.domain.GetFavoritePokemonByIdUseCase
 import com.lira.mypokedex.domain.GetPokemonByNameUseCase
 import com.lira.mypokedex.domain.InsertPokemonIntoDBUseCase
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class PokemonDetailViewModel(private val insertPokemonIntoDBUseCase: InsertPokemonIntoDBUseCase,
@@ -21,7 +23,13 @@ class PokemonDetailViewModel(private val insertPokemonIntoDBUseCase: InsertPokem
 
     fun getPokemon(name: String) {
         viewModelScope.launch {
-            getPokemonByNameUseCase(name).collect {
+            getPokemonByNameUseCase(name)
+                .onStart {
+                    _pokemon.postValue(Method.Loading)
+                }.catch {
+                    _pokemon.postValue(Method.Error(it))
+                }
+                .collect {
                 _pokemon.postValue(Method.GetFromApi(it))
             }
         }
@@ -39,13 +47,15 @@ class PokemonDetailViewModel(private val insertPokemonIntoDBUseCase: InsertPokem
         viewModelScope.launch {
             getFavoritePokemonByIdUseCase(id)
                 .collect {
-                    _pokemon.postValue(Method.Get(it))
+                    _pokemon.postValue(Method.GetFromDB(it))
             }
         }
     }
 
     sealed class Method {
-        data class Get(val pokemon: PokemonDB?): Method()
+        object Loading: Method()
+        data class Error(val error: Throwable): Method()
+        data class GetFromDB(val pokemon: PokemonDB?): Method()
         data class Insert(val ok: Boolean): Method()
         data class GetFromApi(val pokemon: Pokemon): Method()
     }
