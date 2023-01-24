@@ -4,7 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.lira.mypokedex.data.model.PokemonList
+import com.lira.mypokedex.data.repositories.PokemonPagingSource
+import com.lira.mypokedex.data.services.PokemonService
 import com.lira.mypokedex.domain.GetPokemonByNameUseCase
 import com.lira.mypokedex.domain.GetListOfPokemonUseCase
 import kotlinx.coroutines.flow.catch
@@ -12,16 +17,21 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class PokedexViewModel(private val getListOfPokemonUseCase: GetListOfPokemonUseCase,
-                       private val getPokemonByNameUseCase: GetPokemonByNameUseCase) : ViewModel() {
+                       private val getPokemonByNameUseCase: GetPokemonByNameUseCase,
+                       private val service: PokemonService) : ViewModel() {
 
     private val _pokemon = MutableLiveData<State>()
     val pokemon: LiveData<State> = _pokemon
 
-    init {
-        getPokemonList()
-    }
+    val pokemonList = Pager(PagingConfig(20)) {
+        PokemonPagingSource(service)
+    }.flow.cachedIn(viewModelScope)
 
-    fun getPokemonList(){
+    /*init {
+        getPokemonList()
+    }*/
+
+    /*fun getPokemonList(){
         viewModelScope.launch {
             getListOfPokemonUseCase()
                 .onStart {
@@ -41,7 +51,7 @@ class PokedexViewModel(private val getListOfPokemonUseCase: GetListOfPokemonUseC
                     _pokemon.postValue(State.Success(pokedexEntries))
                 }
         }
-    }
+    }*/
 
     fun getPokemonByName(pokemonName: String){
         viewModelScope.launch {

@@ -6,13 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.lira.mypokedex.R
 import com.lira.mypokedex.core.createDialog
 import com.lira.mypokedex.core.createProgressDialog
 import com.lira.mypokedex.core.hideSoftKeyBoard
 import com.lira.mypokedex.databinding.FragmentPokedexBinding
 import com.lira.mypokedex.presentation.PokedexViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PokedexFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -40,7 +46,34 @@ class PokedexFragment : Fragment(), SearchView.OnQueryTextListener {
 
         binding.rvPokemon.adapter = adapter
 
-        pokedexViewModel.pokemon.observe(viewLifecycleOwner){
+        viewLifecycleOwner.lifecycleScope.launch {
+            pokedexViewModel.pokemonList.collectLatest {
+                adapter.submitData(it)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            adapter.loadStateFlow.collect {
+                val state = it.refresh
+                binding.progressBarPokedex.isVisible = state is LoadState.Loading
+            }
+        }
+
+        binding.rvPokemon.adapter = adapter.withLoadStateFooter(
+            TryAgainAdapter{
+                adapter.retry()
+            }
+        )
+
+        /*viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            adapter.loadStateFlow.collect {
+                val state = it.refresh
+                dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                dialog.show()
+            }
+        }*/
+
+        /*pokedexViewModel.pokemon.observe(viewLifecycleOwner){
             when(it){
                 PokedexViewModel.State.Loading -> {
                     dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -57,7 +90,7 @@ class PokedexFragment : Fragment(), SearchView.OnQueryTextListener {
                     adapter.submitList(it.pokemonList)
                 }
             }
-        }
+        }*/
     }
 
     private fun setupMenu() {
@@ -71,7 +104,7 @@ class PokedexFragment : Fragment(), SearchView.OnQueryTextListener {
                     binding.pokedexToolbar.collapseActionView()
                 } else {
                     this.isEnabled = false
-                    pokedexViewModel.getPokemonList()
+                    //pokedexViewModel.getPokemonList()
                     //activity?.finish()
                 }
             }

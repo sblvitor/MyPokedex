@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface PokemonRepository {
 
-    suspend fun listPokemon(): Flow<PokemonResponse>
+    // funcao sem uso por enquanto (por conta da impl do paging)
+    suspend fun listPokemon(page: Int): Flow<PokemonResponse>
 
     suspend fun getPokemonByName(pokemonName: String): Flow<Pokemon>
 

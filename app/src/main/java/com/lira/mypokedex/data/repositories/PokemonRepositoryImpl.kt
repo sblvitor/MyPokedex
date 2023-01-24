@@ -7,9 +7,9 @@ import retrofit2.HttpException
 
 class PokemonRepositoryImpl(private val service: PokemonService): PokemonRepository {
 
-    override suspend fun listPokemon() = flow {
+    override suspend fun listPokemon(page: Int) = flow {
         try {
-            val pokemonResponse = service.listPokemon()
+            val pokemonResponse = service.listPokemon(page)
             emit(pokemonResponse)
         } catch (ex: HttpException) {
             throw RemoteException(ex.message ?: "Não foi possível realizar a busca!")

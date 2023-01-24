@@ -16,7 +16,7 @@ object PresentationModule {
 
     private fun viewModelModule(): Module {
         return module {
-            viewModel { PokedexViewModel(get(), get()) }
+            viewModel { PokedexViewModel(get(), get(), get()) }
             viewModel { PokemonDetailViewModel(get(), get(), get()) }
             viewModel { FavoritesViewModel(get(), get()) }
         }

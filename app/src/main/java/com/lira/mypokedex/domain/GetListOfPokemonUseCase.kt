@@ -5,12 +5,11 @@ import com.lira.mypokedex.data.model.PokemonResponse
 import com.lira.mypokedex.data.repositories.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetListOfPokemonUseCase(private val repository: PokemonRepository): UseCase.NoParam<PokemonResponse>() {
+class GetListOfPokemonUseCase(private val repository: PokemonRepository): UseCase<Int, PokemonResponse>() {
 
-    override suspend fun execute(): Flow<PokemonResponse> {
+    override suspend fun execute(param: Int): Flow<PokemonResponse> {
 
-        return repository.listPokemon()
+        return repository.listPokemon(param)
 
     }
-
 }

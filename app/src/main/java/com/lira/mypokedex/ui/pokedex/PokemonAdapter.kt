@@ -3,14 +3,14 @@ package com.lira.mypokedex.ui.pokedex
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lira.mypokedex.data.model.PokemonList
 import com.lira.mypokedex.databinding.ItemPokemonBinding
 
-class PokemonAdapter: ListAdapter<PokemonList, PokemonAdapter.ViewHolder>(DiffCallback()) {
+class PokemonAdapter: PagingDataAdapter<PokemonList, PokemonAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,7 +19,8 @@ class PokemonAdapter: ListAdapter<PokemonList, PokemonAdapter.ViewHolder>(DiffCa
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)!!)
+        holder.setIsRecyclable(false)
     }
 
     inner class ViewHolder(private val binding: ItemPokemonBinding): RecyclerView.ViewHolder(binding.root) {

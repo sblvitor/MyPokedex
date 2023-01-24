@@ -12,4 +12,6 @@
     <string name="title_pokemon_detail">Pokemon Detail</string>
     <string name="favorite_menu_title">Favorite</string>
     <string name="txt_search">Search</string>
+    <string name="txt_try_again">Ops! Please try again!</string>
+    <string name="txt_retry" translatable="false">Retry</string>
 </resources>
