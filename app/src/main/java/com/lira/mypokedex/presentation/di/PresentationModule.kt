@@ -18,7 +18,6 @@ object PresentationModule {
             viewModel { PokemonDetailViewModel(get(), get(), get()) }
             viewModel { FavoritesViewModel(get(), get()) }
             viewModel { SearchViewModel(get()) }
-            viewModel { SearchDetailViewModel() }
         }
     }
 

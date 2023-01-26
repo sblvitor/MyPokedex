@@ -14,5 +14,4 @@
     <string name="txt_search">Search</string>
     <string name="txt_try_again">Ops! Please try again!</string>
     <string name="txt_retry" translatable="false">Retry</string>
-    <string name="title_search_detail">Search Detail</string>
 </resources>

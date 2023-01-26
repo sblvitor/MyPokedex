@@ -34,7 +34,7 @@ class SearchAdapter: ListAdapter<Pokemon, SearchAdapter.ViewHolder>(DiffCallBack
             }
 
             itemView.setOnClickListener {
-                val action = SearchFragmentDirections.actionNavigationSearchToNavigationSearchDetail(item)
+                val action = SearchFragmentDirections.actionNavigationSearchToNavigationPokemonDetail(item.name)
                 it.findNavController().navigate(action)
             }
         }
