@@ -114,10 +114,15 @@ class PokemonDetailFragment : Fragment() {
 
     private fun setupUI(pokemon: Pokemon) {
         binding.apply {
-            Glide.with(requireContext())
-                .asGif()
-                .load(pokemon.sprites.versions.generationV.blackWhite.animated.frontDefault)
-                .into(ivPokemonDetail)
+            if(pokemon.sprites.versions.generationV.blackWhite.animated.frontDefault != null)
+                Glide.with(requireContext())
+                    .asGif()
+                    .load(pokemon.sprites.versions.generationV.blackWhite.animated.frontDefault)
+                    .into(ivPokemonDetail)
+            else
+                Glide.with(requireContext())
+                    .load(pokemon.sprites.frontDefault)
+                    .into(ivPokemonDetail)
 
             tvPokemonNameDetail.text = pokemon.name.replaceFirstChar { it.uppercase() }
             tvPokemonNumber.text = pokemon.id.toString()

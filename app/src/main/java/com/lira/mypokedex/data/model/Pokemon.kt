@@ -41,7 +41,7 @@ data class BlackWhite (
 @Parcelize
 data class Animated (
     @SerializedName("front_default")
-    val frontDefault: String
+    val frontDefault: String?
 ): Parcelable
 
 @Parcelize
