@@ -2,7 +2,7 @@
     <string name="app_name">My Pokédex</string>
     <string name="title_pokedex">Pokédex</string>
     <string name="title_favorites">Favorites</string>
-    <string name="title_menu">Menu</string>
+    <string name="title_search">Search</string>
     <string name="cd_pokemon">Pokemon</string>
     <string name="number">#</string>
     <string name="tv_height">Height</string>

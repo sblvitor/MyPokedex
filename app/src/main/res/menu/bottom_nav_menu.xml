@@ -7,13 +7,13 @@
         android:title="@string/title_pokedex" />
 
     <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/search"
+        android:title="@string/title_search" />
+
+    <item
         android:id="@+id/navigation_favorites"
         android:icon="@drawable/heart"
         android:title="@string/title_favorites" />
-
-    <item
-        android:id="@+id/navigation_menu"
-        android:icon="@drawable/menu"
-        android:title="@string/title_menu" />
 
 </menu>

@@ -3,7 +3,7 @@
     <string name="app_name">Minha Pokédex</string>
     <string name="title_pokedex">Pokédex</string>
     <string name="title_favorites">Favoritos</string>
-    <string name="title_menu">Menu</string>
+    <string name="title_search">Buscar</string>
     <string name="cd_pokemon">Pokemon</string>
     <string name="number">#</string>
     <string name="tv_height">Altura</string>

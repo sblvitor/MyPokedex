@@ -34,8 +34,8 @@
         tools:layout="@layout/fragment_favorites" />
 
     <fragment
-        android:id="@+id/navigation_menu"
-        android:name="com.lira.mypokedex.ui.menu.MenuFragment"
-        android:label="@string/title_menu"
-        tools:layout="@layout/fragment_menu" />
+        android:id="@+id/navigation_search"
+        android:name="com.lira.mypokedex.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
