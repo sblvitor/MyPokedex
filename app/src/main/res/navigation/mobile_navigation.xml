@@ -37,5 +37,19 @@
         android:id="@+id/navigation_search"
         android:name="com.lira.mypokedex.ui.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_search_detail"
+            app:destination="@id/navigation_search_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_search_detail"
+        android:name="com.lira.mypokedex.ui.searchDetail.SearchDetail"
+        android:label="@string/title_search_detail"
+        tools:layout="@layout/fragment_search_detail" >
+        <argument
+            android:name="pokemon"
+            app:argType="com.lira.mypokedex.data.model.Pokemon" />
+    </fragment>
 </navigation>

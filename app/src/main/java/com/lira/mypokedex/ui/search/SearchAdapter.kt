@@ -2,6 +2,7 @@ package com.lira.mypokedex.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,11 @@ class SearchAdapter: ListAdapter<Pokemon, SearchAdapter.ViewHolder>(DiffCallBack
                     .with(binding.root.context)
                     .load(item.sprites.frontDefault)
                     .into(ivPokemon)
+            }
+
+            itemView.setOnClickListener {
+                val action = SearchFragmentDirections.actionNavigationSearchToNavigationSearchDetail(item)
+                it.findNavController().navigate(action)
             }
         }
 

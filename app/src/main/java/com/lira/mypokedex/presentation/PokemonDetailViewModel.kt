@@ -30,8 +30,8 @@ class PokemonDetailViewModel(private val insertPokemonIntoDBUseCase: InsertPokem
                     _pokemon.postValue(Method.Error(it))
                 }
                 .collect {
-                _pokemon.postValue(Method.GetFromApi(it))
-            }
+                    _pokemon.postValue(Method.GetFromApi(it))
+                }
         }
     }
 
