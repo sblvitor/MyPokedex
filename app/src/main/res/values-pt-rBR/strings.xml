@@ -14,4 +14,5 @@
     <string name="favorite_menu_title">Favorito</string>
     <string name="txt_search">Buscar</string>
     <string name="txt_try_again">Ops! Tente novamente!</string>
+    <string name="txt_no_fav_pok">Opa! Você não possui nenhum pokemon favorito ainda!</string>
 </resources>

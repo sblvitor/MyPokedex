@@ -56,6 +56,9 @@ class FavoritesFragment : Fragment() {
                 is FavoritesViewModel.State.Success -> {
                     dialog.dismiss()
                     adapter.submitList(it.pokemonList)
+                    if (adapter.itemCount == 0){
+                        binding.tvNoFavPok.visibility = View.VISIBLE
+                    }
                 }
                 is FavoritesViewModel.State.JustDeleted -> {
                     if (it.ok)
