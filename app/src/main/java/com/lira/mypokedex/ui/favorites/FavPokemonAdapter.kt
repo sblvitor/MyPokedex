@@ -2,6 +2,7 @@ package com.lira.mypokedex.ui.favorites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,11 @@ class FavPokemonAdapter(private val onClickListener: OnClickListener): ListAdapt
 
             binding.ibFavorite.setOnClickListener {
                 onClickListener.onClick(item)
+            }
+
+            itemView.setOnClickListener {
+                val action = FavoritesFragmentDirections.actionNavigationFavoritesToNavigationPokemonDetail(item.name)
+                it.findNavController().navigate(action)
             }
         }
 

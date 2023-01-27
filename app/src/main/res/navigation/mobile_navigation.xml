@@ -31,7 +31,11 @@
         android:id="@+id/navigation_favorites"
         android:name="com.lira.mypokedex.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_navigation_favorites_to_navigation_pokemon_detail"
+            app:destination="@id/navigation_pokemon_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
