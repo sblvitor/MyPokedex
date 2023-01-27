@@ -321,6 +321,21 @@ class PokemonDetailFragment : Fragment() {
 
             val weightValue = (pokemon.weight / 10F).toString() + " " + "kg"
             tvWeightValue.text = weightValue
+
+            val maxStat = pokemon.stats.maxOf { it.baseStat }
+            pbHp.max = maxStat
+            pbAtk.max = maxStat
+            pbDef.max = maxStat
+            pbSpAtk.max = maxStat
+            pbSpDef.max = maxStat
+            pbSpd.max = maxStat
+
+            pbHp.progress = pokemon.stats[0].baseStat
+            pbAtk.progress = pokemon.stats[1].baseStat
+            pbDef.progress = pokemon.stats[2].baseStat
+            pbSpAtk.progress = pokemon.stats[3].baseStat
+            pbSpDef.progress = pokemon.stats[4].baseStat
+            pbSpd.progress = pokemon.stats[5].baseStat
         }
     }
 

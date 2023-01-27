@@ -14,4 +14,11 @@
     <string name="txt_search">Search</string>
     <string name="txt_try_again">Ops! Please try again!</string>
     <string name="txt_retry" translatable="false">Retry</string>
+    <string name="txt_hp" translatable="false">HP</string>
+    <string name="txt_atk" translatable="false">ATK</string>
+    <string name="txt_def" translatable="false">DEF</string>
+    <string name="txt_sp_atk" translatable="false">SpATK</string>
+    <string name="txt_sp_def" translatable="false">SpDEF</string>
+    <string name="txt_spd" translatable="false">SPD</string>
+    <string name="blank" translatable="false">\"\"</string>
 </resources>

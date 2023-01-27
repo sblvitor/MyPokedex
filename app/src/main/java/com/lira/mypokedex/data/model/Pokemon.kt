@@ -10,6 +10,7 @@ data class Pokemon (
     val id: Long,
     val name: String,
     val sprites: Sprites,
+    val stats: List<StatsData>,
     val types: List<TypeElement>,
     val weight: Long
 ): Parcelable
@@ -51,5 +52,17 @@ data class TypeElement (
 
 @Parcelize
 data class TypeType (
+    val name: String
+): Parcelable
+
+@Parcelize
+data class StatsData(
+    @SerializedName("base_stat")
+    val baseStat: Int,
+    val stat: StatName
+): Parcelable
+
+@Parcelize
+data class StatName(
     val name: String
 ): Parcelable
