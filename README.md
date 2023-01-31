@@ -1,8 +1,6 @@
 # Minha Pokedex
 
-O Minha Pokedex é um aplicativo Android nativo desenvolvido em Kotlin, que lista todos os pokemon e também tem a feature de busca por um específico, 
-através da [PokéAPI](https://pokeapi.co/docs/v2#pokemon). Nele também é possível favoritar qualquer pokemon, sendo este então armazenado em um banco de dados
-local e disposto na lista de favoritos. Além disso, ao clicar em algum pokemon é mostrada uma tela de detalhes com informações adicionais do mesmo.
+O Minha Pokedex é um aplicativo Android nativo desenvolvido em Kotlin, que lista todos os pokemon através da [PokéAPI](https://pokeapi.co/docs/v2#pokemon), sendo possível também realizar uma busca por algum específico. Nele também é possível favoritar qualquer pokemon, sendo este então armazenado em um banco de dados local e disposto na lista de favoritos. Além disso, ao clicar em algum pokemon é mostrada uma tela de detalhes com informações adicionais do mesmo.
 
 ## Screenshots
 
