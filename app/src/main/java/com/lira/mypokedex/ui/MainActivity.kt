@@ -1,6 +1,7 @@
 package com.lira.mypokedex.ui
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -37,6 +38,13 @@ class MainActivity : AppCompatActivity() {
         )*/
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.navigation_pokemon_detail) {
+                navView.visibility = View.GONE
+            } else
+                navView.visibility = View.VISIBLE
+        }
     }
 
     /*override fun onSupportNavigateUp(): Boolean {
