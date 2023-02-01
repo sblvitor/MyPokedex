@@ -9,7 +9,7 @@ O Minha Pokedex é um aplicativo Android nativo desenvolvido em Kotlin, que list
 </p>
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/98563516/215863153-ce210915-027b-48b1-98b3-c828afeba23f.jpg" width="300px" height="600px">   <img src="https://user-images.githubusercontent.com/98563516/215863205-acc22042-16f5-45fa-80dc-ba0536638f29.jpg" width="300px" height="600px">
+<img src="https://user-images.githubusercontent.com/98563516/215863153-ce210915-027b-48b1-98b3-c828afeba23f.jpg" width="300px" height="600px">   <img src="https://user-images.githubusercontent.com/98563516/216182252-a7ccc9d4-43e1-4f22-9b34-0b8fd07c6d01.jpg" width="300px" height="600px">
 </p>
 
 Obs: as prioridades dadas nesse app foram as funcionalidades implementadas, portanto o visual não está muito estilizado.
